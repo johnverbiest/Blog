@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Static code analysis with nDepend
 categories: [code, code analysis]
 ---
