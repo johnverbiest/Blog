@@ -70,6 +70,7 @@ read that. But I got it figured out, and this is how it works:
 ![Settings](images/static-code-analysis-metrics-top.png)
 
 On the top you will find the following:
+
 | Item | What it controls |
 |------|------------------|
 | Level | The smalles part of the chart you will see, and subsequently the metrics that are available |
@@ -77,4 +78,4 @@ On the top you will find the following:
 | Color | The metric controlling the color of the boxes |
 
 On the left you will find a slider and some minor settings, controlling what level
-of the `Color` metric correspondents with what color.
+of the `Color`-selected-metric correspondents with what color.
