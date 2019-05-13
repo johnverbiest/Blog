@@ -3,6 +3,7 @@ title: My first babysteps in static code analysis with nDepend
 categories: [code, code analysis]
 ---
 # Introduction
+![Sherlock Holmes](images/sherlock-holmes.png#right)
 A few weeks ago, I was asked to look into static code analysis, mainly with the tool
 nDepend. I had never had any experience with static code analysis yet, and was fairly
 curious about what this was all about. 
@@ -13,3 +14,4 @@ talking about some metrics and conclusions you can get from a static code analys
 tool and I will be ending my post with a small overview what nDepend has to offer.
 
 # Static code analysis
+## What is it?
