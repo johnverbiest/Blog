@@ -79,3 +79,50 @@ On the top you will find the following:
 
 On the left you will find a slider and some minor settings, controlling what level
 of the `Color`-selected-metric correspondents with what color.
+
+
+
+#### Boxes, boxes, boxes
+![Assembly](images/static-code-analysis-metrics-assembly.png)
+
+Inside the blue square you see the biggest kind of box in the graph. Surrounded by a
+thick yellow line (remember: never eat yellow lines) you will find all code within an
+assembly. 
+
+For this example specifically, the `size` setting has been set to lines of code. 
+This means the size of the box represents the amount of lines in the code, relative
+to all lines of code in the solution.
+
+![Assembly](images/static-code-analysis-metrics-namespace.png)
+
+This time the blue square surrounds a namespace. It's not so clear to see, but the 
+namespace is being surrounded by a thin, non-edible yellow line. The size is again
+a representation of the amount of lines of code.
+
+![Assembly](images/static-code-analysis-metrics-class.png)
+
+The next step in this graph is evidently a class. They are found by looking at the
+slightly darker borders making a square. And you guessed it correctly, again the size
+is dependant on the lines of code.
+
+![Assembly](images/static-code-analysis-metrics-method.png)
+
+The final and smalles part in the chart is a method. They should be hard to see in 
+an overview this large, but the codebase has some big (read: huge) methods in there.
+
+All these levels together give you a nice overview on how the distribution of lines
+of code is in your solution. 
+
+#### Color
+![Color](images/static-code-analysis-cyclomatic-complexity.png)
+
+Going back to the cyclomatic complexity graph without any blue boxes. When we look
+at the colour settings you see that I have selected the "IL Cyclomatic Complexity" 
+as a metric for the color metrics. On the left you can see that I've set the green 
+bar at 10 and the red bar at 20. 
+
+This results in all methods having a complexity equal or less than 10 to be green. 
+Methods with a complexity between 10 and 20 are a shade of green, yellow or red-ish. 
+All methods above 20 are red in this example. As you can see there are quite some 
+complex methods in the system, with the bulk of them on the bottom left corner in 
+the XSL assembly.
