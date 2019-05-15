@@ -1,0 +1,8 @@
+﻿# For internal documentation only
+- Name: Blog Posts
+  href: about.md
+  items:
+  - name: Static Code Analysis with nDepend
+    href: _posts/2019-05-13-static-code-analysis-with-ndepend.md
+- Name: Blog site
+  href: http://blog.johnverbiest.be
