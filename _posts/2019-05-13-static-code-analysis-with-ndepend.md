@@ -126,3 +126,129 @@ Methods with a complexity between 10 and 20 are a shade of green, yellow or red-
 All methods above 20 are red in this example. As you can see there are quite some 
 complex methods in the system, with the bulk of them on the bottom left corner in 
 the XSL assembly.
+
+#### Diving to your method
+![Complex Method Of 723](images/static-code-analysis-cyclomatic-complexity-method.png)
+
+Whenever you click a "box" in the graph, you get redirected to the method representing
+that box. The example above has a cyclomatic complexity of 723 (only part of the method
+is displayed here, the full method is around 500 lines long).
+
+## Lines of code
+
+> The first rule of functions is that they should be small. The second rule of functions 
+> is that they should be smaller than that. 
+> 
+> "Uncle" Bob - Robert C. Martin
+
+Uncle bob also specifies some numbers regarding this. However he does state that these 
+numbers are based only on his gutfeeling and his experience. 
+He states that functions should not be a 100 lines long. In fact they should hardly be
+20 lines long. 
+
+![LOC vs rank](images/static-code-analysis-metrics-loc.png)
+
+This is the same codebase as the previous example. However the size of the boxes are
+dependent on it's rank now. Rank is a metric based on the Google Rank system where 
+methods and classes that are used more, are bigger, and the least used are the small
+boxes. The color represents the lines of code. From this metric you can see that the
+code ranked the highest are actually not that bad in regards of lines of code.  Almost
+all of them are beneath 20 lines of code, a few are above 50 and some rare ones are
+above 100. 
+
+## Instability vs abstractness
+This is actually a metric in the scope of the assembly. It produces a nice graph where
+you can get some meaningfull insights very quick. But first I need to introduce you to
+stability and abstractness themselves.
+
+### Stability
+In the context of code analysis, stability means how stable code should be, and not how
+stable code really is. You can also describe stability as "how difficult and risky is
+it to change something about this code". 
+
+When talking about stability, it actually boils down to this: if something in your code
+is referenced a lot, it is hard to change. Ever tried removing a parameter in a method
+referenced 100 times? That method is stable code.
+
+When talking about assemblies, stable assemblies mean that this particular assembly has
+lots of incoming references, regardless on where in the assembly they land. 
+
+### Abstractness
+Abstractness is a bit easier to explain: it's a number between 0 and 1. A zero means 
+the assembly contains only implementations. An assembly gets rewared a 1 when all the
+types within the assembly are only interfaces or abstract classes.
+
+### Stability vs Abstractness
+Combining the two together, you can get the following graph:
+![Instability vs abstractness](images/static-code-analysis-metrics-instability-vs-abstractness.png)
+
+When designing your application, you have to take both instability and abstractness
+into your mind. A good designed appliction will have stable abstract types and
+unstable implementations of those types. Combining these two gives you the best
+chance in creating maintainable code. This is however the theory, and the image
+above shows you how good your code behaves in this aspect.
+
+In the center you have the green zone. This is the place you want your assembly to
+be. It goes from the fully abstract stable assemblies in the top left to the 
+unstable but implemented zone on the right bottom. 
+
+Next to the green zone you will find the orange "Danger Zones". These are assemblies
+that are moving in the wrong direction, but are not that bad (yet).
+
+In the top right corner you will find the "Zone of Uselessness". Assemblies ending
+up here are abstractions that are not very usefull like an assembly of all kinds
+of interfaces but those interfaces are used in only one other assembly.
+
+The bottom right corner is the worst place to find your assembly in. The "Zone of
+Pain" is the place where you have code that is referenced a lot, but are all
+implementations instead of abstractions. The zone of pain is the place you find yourself
+fixing a bug because of a code change you did not expect to affect that many things.
+
+## Coupling & Cohesion
+When designing software, you should take the following into account:
+
+> Software should have low coupling and high cohesion
+
+But what does this actually mean?
+
+### Coupling
+A methods and classes are coupled to each other when one uses a part of the other. For
+example when you have a method in your class doing this: 
+
+```cs 
+var test = new DateTime(2019, 01, 01);
+```
+
+Your class is now coupled with the DateTime object. Any changes to the DateTime object
+will reflect changes in your code, and can break your code. Thankfully the DateTime
+object is a very stable .net framework object that is unlikely to change.
+
+In your own code however you want your classes to be coupled to very little other of
+your own classes. It's much better to be coupled to an interface than an implementation.
+(see SOLID principles).
+
+When measuring coupling from a certain class, there are 2 types:
+ - Afferent coupling: number of entities (methods/classes/assemblies) that are dependend on this entity
+ - Efferent coupling: number of entities (methods/classes/)assemblies) that this entity depends upon
+
+ In both cases, you want that number to be as low as possible to keep your maintainability as high as possible.
+
+ ### Cohesion
+ A class is cohesive if everything that the class needs to do it job is within the class. This is a very hard thing to measure, so they made a metric that might do the
+ trick a bit.
+
+ The LCOM (Lack of cohesion) is a number between 0 and 1. A class containing only
+ methods using all of the internal fields get rewarded with a nice 0. When none
+ of the methods in the class use any of the internal fields, it gets a nice 1. 
+
+ A result below 0.5 is considered as a good result. Above 0.7 there might be a small 
+ problem and above 0.8 you're not very cohesive. Keep this number as low as possible
+ aw well.
+
+ ### Coupling & Cohesion together
+ ![Coupling and Cohesion](images/static-code-analysis-metrics-coupling-cohesion.png)
+
+ This time the box size is the amount of types using the specific class. The color
+ is the lack of cohesion of the methods in that type. The type on the top right could
+ be a class that is badly designed, because it's functionality is not contained within
+ the specific class.
