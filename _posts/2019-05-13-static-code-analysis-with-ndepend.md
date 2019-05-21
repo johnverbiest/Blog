@@ -16,12 +16,12 @@ tool and I will be ending my post with a small overview what nDepend has to offe
 # Static code analysis
 ## What is it?
 You might not know it, but in most IDE's we already use static code analysis all the
-time. However wrapped into a nice package known as IDE features. 
+time. However it is wrapped into a nice package known as IDE features. 
 
 ![Static code analysis ide features](images/static-code-analysis-ide.png)
 
 As you can see in the image above, I can get 4 kinds of static code analysis from
-this small piece of software alone. 
+this small part of Visual Studio alone. 
  - On top we have codelens, informing us how many times and where the function is used
  - The blue squiggly line indicates we have a local variable that does not comply to the local coding conventions
  - The red squiggly line indicates we should expect a build error on that line
@@ -34,7 +34,7 @@ We can define the difference between static and dynamic code analysis as follows
 |----------------------|----------------------|
 | Code is not running  | Code is in a running state |
 | Analysing code itself | Analysing features |
-| For obvious probles & code smells | For everything else |
+| For obvious problems & code smells | For everything else |
 | Examples: Code style & smells, metrics, ... | Examples: Memory & CPU pressure, Debugging, ... |
 
 In short: Static code analysis focusses most on code quality in the domain of 
@@ -43,7 +43,7 @@ features and performance.
 
 # Static code metrics
 In this chapter i will focus on the four metrics I think are the most important 
-ones for your code. I might update some new metrics later, but in my humble opinion
+ones for your code. I might blog about some new metrics later, but in my humble opinion
 these are key for your code.
 
 ## Cyclomatic Complexity
@@ -93,19 +93,19 @@ For this example specifically, the `size` setting has been set to lines of code.
 This means the size of the box represents the amount of lines in the code, relative
 to all lines of code in the solution.
 
-![Assembly](images/static-code-analysis-metrics-namespace.png)
+![namespace](images/static-code-analysis-metrics-namespace.png)
 
 This time the blue square surrounds a namespace. It's not so clear to see, but the 
 namespace is being surrounded by a thin, non-edible yellow line. The size is again
 a representation of the amount of lines of code.
 
-![Assembly](images/static-code-analysis-metrics-class.png)
+![class](images/static-code-analysis-metrics-class.png)
 
 The next step in this graph is evidently a class. They are found by looking at the
 slightly darker borders making a square. And you guessed it correctly, again the size
 is dependant on the lines of code.
 
-![Assembly](images/static-code-analysis-metrics-method.png)
+![method](images/static-code-analysis-metrics-method.png)
 
 The final and smalles part in the chart is a method. They should be hard to see in 
 an overview this large, but the codebase has some big (read: huge) methods in there.
@@ -139,7 +139,7 @@ is displayed here, the full method is around 500 lines long).
 > The first rule of functions is that they should be small. The second rule of functions 
 > is that they should be smaller than that. 
 > 
-> "Uncle" Bob - Robert C. Martin
+> "Uncle Bob" - Robert C. Martin
 
 Uncle bob also specifies some numbers regarding this. However he does state that these 
 numbers are based only on his gutfeeling and his experience. 
@@ -171,7 +171,7 @@ is referenced a lot, it is hard to change. Ever tried removing a parameter in a 
 referenced 100 times? That method is stable code.
 
 When talking about assemblies, stable assemblies mean that this particular assembly has
-lots of incoming references, regardless on where in the assembly they land. 
+lots of incoming references. 
 
 ### Abstractness
 Abstractness is a bit easier to explain: it's a number between 0 and 1. A zero means 
@@ -196,13 +196,16 @@ Next to the green zone you will find the orange "Danger Zones". These are assemb
 that are moving in the wrong direction, but are not that bad (yet).
 
 In the top right corner you will find the "Zone of Uselessness". Assemblies ending
-up here are abstractions that are not very usefull like an assembly of all kinds
+up here are abstractions that are not very usefull. For example assembly with all kinds
 of interfaces but those interfaces are used in only one other assembly.
 
 The bottom right corner is the worst place to find your assembly in. The "Zone of
 Pain" is the place where you have code that is referenced a lot, but are all
 implementations instead of abstractions. The zone of pain is the place you find yourself
 fixing a bug because of a code change you did not expect to affect that many things.
+
+The main thing you are measuring here is if your software depends on interfaces in stead
+of implementations. Having this balance in order makes your life a lot easier.
 
 ## Coupling & Cohesion
 When designing software, you should take the following into account:
@@ -213,18 +216,18 @@ But what does this actually mean?
 
 ### Coupling
 A methods and classes are coupled to each other when one uses a part of the other. For
-example when you have a method in your class doing this: 
+example when you have a line of code in your class doing this: 
 
 ```cs 
 var test = new DateTime(2019, 01, 01);
 ```
 
 Your class is now coupled with the DateTime object. Any changes to the DateTime object
-will reflect changes in your code, and can break your code. Thankfully the DateTime
-object is a very stable .net framework object that is unlikely to change.
+will reflect changes in your code, and this could break your code. Thankfully the DateTime
+object is a very stable .net framework object that is very unlikely to change.
 
-In your own code however you want your classes to be coupled to very little other of
-your own classes. It's much better to be coupled to an interface than an implementation.
+In your own code however you want your classes to be coupled to very little other classes.
+It's much better to be coupled to an interface than an implementation.
 (see SOLID principles).
 
 When measuring coupling from a certain class, there are 2 types:
@@ -255,18 +258,18 @@ the specific class.
 
 # nDepend added values
 For the creation of this blog, I've been using nDepend. NDepend is a tool, integrated
-in visual studio or via the buildserver, that can be used for much more than what I've
+in Visual Studio or via the buildserver, that can be used for much more than what I've
 described here. 
 
 ## More data
 ![Query your code](images/static-code-analysis-rules.png#right)
 All the data of your code is being stored in nDepend and can be queried via linq 
 queries. This gives you the ability to quickly query your code. In the example I 
-query the code, requesting the top 50 methods with the hightes CyclomaticComplexity.
+query the code, requesting the top 50 methods with the highest Cyclomatic Complexity.
 
 ## Rules
-However, you can do more: from these queries you are able to create rules. You can 
-create for example a rule that enforces all methods containing more than 100 lines
+However, you can do more: from these queries you are able to create rules. For example 
+you can create a rule that enforces all methods containing more than 100 lines
 of code, should have a cyclomatic complexity of maximum 10 or the method name should 
 not contain your first name. 
 
@@ -284,7 +287,7 @@ build step failure and will stop that code from ever entering production.
 
 # Final thoughts
 When I was first asked to venture on a journey through static code analysis, I had no 
-idea what to expect. Even the first hour to two hours of looking at the charts, data
+idea what to expect. Even after the first two hours of looking at the charts, data
 and controls had me confused. After a while I got the hang of it and now I really see
 what added benefit having static code analysis could bring.
  - It enables you to find code smells and potential errors
@@ -293,4 +296,4 @@ what added benefit having static code analysis could bring.
  - It enables you to have control about the amount of "bad code" you allow in the software
 
  nDepend can be a real help here. There are other products on the market, even free ones
- but I have no experience with those.
+ but I have no experience with those. Maybe later?
