@@ -5,12 +5,12 @@ categories: [code, code analysis]
 # Introduction
 ![Sherlock Holmes](images/sherlock-holmes.png#right)
 A few weeks ago, I was asked to look into static code analysis, mainly with the tool
-nDepend. I had never had any experience with static code analysis yet, and was fairly
+nDepend. I've never had any experience with static code analysis, and was fairly
 curious about what this was all about. 
 
 In this blogpost I will be talking about what static code analysis is, what the 
 difference is with dynamic code analysis and when to use it. After that I will be 
-talking about some metrics and conclusions you can get from a static code analysis
+covering some metrics and conclusions you can get from a static code analysis
 tool and I will be ending my post with a small overview what nDepend has to offer.
 
 # Static code analysis
@@ -42,14 +42,14 @@ maintainability & readability. Dynamic code analysis focusses in the field of
 features and performance.
 
 # Static code metrics
-In this chapter i will focus on the four metrics I think are the most important 
+In this chapter I will focus on the four metrics I think are the most important 
 ones for your code. I might blog about some new metrics later, but in my humble opinion
 these are key for your code.
 
 ## Cyclomatic Complexity
 Quite a mouthful as a word. When this metric is measured, it will count every ```if```, ```else```, ```switch```, ```goto```, ```for```, ```while``` and every
 other known code-flow-changing keyword. This count results in the Cyclomatic 
-Compexity.
+Complexity.
 
 To make it a little more easy to understand: Cyclomatic complexity measures the
 amount of code paths in a method.
