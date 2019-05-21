@@ -264,12 +264,33 @@ All the data of your code is being stored in nDepend and can be queried via linq
 queries. This gives you the ability to quickly query your code. In the example I 
 query the code, requesting the top 50 methods with the hightes CyclomaticComplexity.
 
+## Rules
 However, you can do more: from these queries you are able to create rules. You can 
 create for example a rule that enforces all methods containing more than 100 lines
-of code, should have a cyclomatic complexity of maximum 10 or the method name should not contain your first name.
+of code, should have a cyclomatic complexity of maximum 10 or the method name should 
+not contain your first name. 
 
-## Rules
+You can also define rules as critical, this is of partically use if you use the build
+server integration.
 
 ## Build Server step
+When you put nDepend as a build step in your pipeline, you can get a nice graph and 
+overview of how your code is evolving over time. You can detect pitfalls and bad code
+practices earlier, when it is still easy to overcome them.
+
+The coolest thing however is when you integrate the build server in a setup with critical
+rules, these are really enforced. Having critical rule hits in your code will trigger a
+build step failure and will stop that code from ever entering production.
 
 # Final thoughts
+When I was first asked to venture on a journey through static code analysis, I had no 
+idea what to expect. Even the first hour to two hours of looking at the charts, data
+and controls had me confused. After a while I got the hang of it and now I really see
+what added benefit having static code analysis could bring.
+ - It enables you to find code smells and potential errors
+ - It enables you to get to know code you have never seen before
+ - It enables you and other developers to get to know best practices
+ - It enables you to have control about the amount of "bad code" you allow in the software
+
+ nDepend can be a real help here. There are other products on the market, even free ones
+ but I have no experience with those.
