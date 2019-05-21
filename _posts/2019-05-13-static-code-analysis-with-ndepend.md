@@ -231,24 +231,45 @@ When measuring coupling from a certain class, there are 2 types:
  - Afferent coupling: number of entities (methods/classes/assemblies) that are dependend on this entity
  - Efferent coupling: number of entities (methods/classes/)assemblies) that this entity depends upon
 
- In both cases, you want that number to be as low as possible to keep your maintainability as high as possible.
+In both cases, you want that number to be as low as possible to keep your maintainability as high as possible.
 
- ### Cohesion
- A class is cohesive if everything that the class needs to do it job is within the class. This is a very hard thing to measure, so they made a metric that might do the
- trick a bit.
+### Cohesion
+A class is cohesive if everything that the class needs to do it job is within the class. This is a very hard thing to measure, so they made a metric that might do the
+trick a bit.
 
- The LCOM (Lack of cohesion) is a number between 0 and 1. A class containing only
- methods using all of the internal fields get rewarded with a nice 0. When none
- of the methods in the class use any of the internal fields, it gets a nice 1. 
+The LCOM (Lack of cohesion) is a number between 0 and 1. A class containing only
+methods using all of the internal fields get rewarded with a nice 0. When none
+of the methods in the class use any of the internal fields, it gets a nice 1. 
 
- A result below 0.5 is considered as a good result. Above 0.7 there might be a small 
- problem and above 0.8 you're not very cohesive. Keep this number as low as possible
- aw well.
+A result below 0.5 is considered as a good result. Above 0.7 there might be a small 
+problem and above 0.8 you're not very cohesive. Keep this number as low as possible
+aw well.
 
- ### Coupling & Cohesion together
- ![Coupling and Cohesion](images/static-code-analysis-metrics-coupling-cohesion.png)
+### Coupling & Cohesion together
+![Coupling and Cohesion](images/static-code-analysis-metrics-coupling-cohesion.png)
 
- This time the box size is the amount of types using the specific class. The color
- is the lack of cohesion of the methods in that type. The type on the top right could
- be a class that is badly designed, because it's functionality is not contained within
- the specific class.
+This time the box size is the amount of types using the specific class. The color
+is the lack of cohesion of the methods in that type. The type on the top right could
+be a class that is badly designed, because it's functionality is not contained within
+the specific class.
+
+# nDepend added values
+For the creation of this blog, I've been using nDepend. NDepend is a tool, integrated
+in visual studio or via the buildserver, that can be used for much more than what I've
+described here. 
+
+## More data
+![Query your code](images/static-code-analysis-rules.png#right)
+All the data of your code is being stored in nDepend and can be queried via linq 
+queries. This gives you the ability to quickly query your code. In the example I 
+query the code, requesting the top 50 methods with the hightes CyclomaticComplexity.
+
+However, you can do more: from these queries you are able to create rules. You can 
+create for example a rule that enforces all methods containing more than 100 lines
+of code, should have a cyclomatic complexity of maximum 10 or the method name should not contain your first name.
+
+## Rules
+
+## Build Server step
+
+# Final thoughts
