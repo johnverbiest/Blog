@@ -11,7 +11,7 @@ curious about what this was all about.
 In this blogpost I will be talking about what static code analysis is, what the 
 difference is with dynamic code analysis and when to use it. After that I will be 
 covering some metrics and conclusions you can get from a static code analysis
-tool and I will be ending my post with a small overview what nDepend has to offer.
+tool and I will be ending my post with a small overview of what nDepend has to offer.
 
 # Static code analysis
 ## What is it?
@@ -21,11 +21,11 @@ time. However it is wrapped into a nice package known as IDE features.
 ![Static code analysis ide features](images/static-code-analysis-ide.png)
 
 As you can see in the image above, I can get 4 kinds of static code analysis from
-this small part of Visual Studio alone. 
+this little snippet of code in Visual Studio alone. 
  - On top we have codelens, informing us how many times and where the function is used
- - The blue squiggly line indicates we have a local variable that does not comply to the local coding conventions
+ - The blue squiggly line indicates we have a local variable that does not comply to the local naming conventions
  - The red squiggly line indicates we should expect a build error on that line
- - The slightly dimmed code below tells us that code is actually unreacheable.
+ - The slightly dimmed code below tells us that code is currently unreacheable
 
 ## Static vs Dynamic code analysis
 We can define the difference between static and dynamic code analysis as follows:
@@ -35,11 +35,10 @@ We can define the difference between static and dynamic code analysis as follows
 | Code is not running  | Code is in a running state |
 | Analysing code itself | Analysing features |
 | For obvious problems & code smells | For everything else |
-| Examples: Code style & smells, metrics, ... | Examples: Memory & CPU pressure, Debugging, ... |
+| Examples: Code style & smells, metrics, ... | Examples: Memory & CPU pressure, debugging, ... |
 
-In short: Static code analysis focusses most on code quality in the domain of 
-maintainability & readability. Dynamic code analysis focusses in the field of
-features and performance.
+In short: Static code analysis focusses mostly on code quality in the domain of 
+maintainability & readability. Dynamic code analysis focusses on features and performance.
 
 # Static code metrics
 In this chapter I will focus on the four metrics I think are the most important 
@@ -47,16 +46,15 @@ ones for your code. I might blog about some new metrics later, but in my humble 
 these are key for your code.
 
 ## Cyclomatic Complexity
-Quite a mouthful as a word. When this metric is measured, it will count every ```if```, ```else```, ```switch```, ```goto```, ```for```, ```while``` and every
-other known code-flow-changing keyword. This count results in the Cyclomatic 
-Complexity.
+Quite a mouthful as a word. When this metric is measured, it will count every ```if```, ```else```, ```switch```, ```goto```, ```for```, ```while``` and every other known code-flow-changing keyword. This count results in 
+the Cyclomatic Complexity.
 
-To make it a little more easy to understand: Cyclomatic complexity measures the
+To make it a little easier to understand: Cyclomatic complexity measures the
 amount of code paths in a method.
 
 It is a good practice to keep your complexity under 10. Methods between 10 and 20
 can exists but should be rather rare. Methods with a complexity of 20 and above 
-should be refactored by the earliest convenience. 
+should be refactored on the earliest convenience. 
 
 When you request the metric to be displayed, it shows up like this:
 
@@ -73,11 +71,11 @@ On the top you will find the following:
 
 | Item | What it controls |
 |------|------------------|
-| Level | The smalles part of the chart you will see, and subsequently the metrics that are available |
+| Level | The smallest part of the chart you will see, and subsequently the metrics that are available |
 | Size | The metric controlling the size of the boxes |
 | Color | The metric controlling the color of the boxes |
 
-On the left you will find a slider and some minor settings, controlling what level
+On the right you will find a slider and some minor settings, controlling what level
 of the `Color`-selected-metric correspondents with what color.
 
 
@@ -107,8 +105,8 @@ is dependant on the lines of code.
 
 ![method](images/static-code-analysis-metrics-method.png)
 
-The final and smalles part in the chart is a method. They should be hard to see in 
-an overview this large, but the codebase has some big (read: huge) methods in there.
+The final and smallest part in the chart is a method. They should be hard to see in 
+an overview this large, but this particulary codebase has some big (read: huge) methods.
 
 All these levels together give you a nice overview on how the distribution of lines
 of code is in your solution. 
@@ -148,11 +146,11 @@ He states that functions should not be a 100 lines long. In fact they should har
 
 ![LOC vs rank](images/static-code-analysis-metrics-loc.png)
 
-This is the same codebase as the previous example. However the size of the boxes are
+This is the same codebase as the previous example. However the size of the boxes is
 dependent on it's rank now. Rank is a metric based on the Google Rank system where 
-methods and classes that are used more, are bigger, and the least used are the small
-boxes. The color represents the lines of code. From this metric you can see that the
-code ranked the highest are actually not that bad in regards of lines of code.  Almost
+methods and classes that are used more, are bigger, and the least used are the smallest.
+The color represents the number of lines of code. From this metric you can see that the
+code ranked highest is actually not that bad in regards of lines of code. Almost
 all of them are beneath 20 lines of code, a few are above 50 and some rare ones are
 above 100. 
 
@@ -182,29 +180,29 @@ types within the assembly are only interfaces or abstract classes.
 Combining the two together, you can get the following graph:
 ![Instability vs abstractness](images/static-code-analysis-metrics-instability-vs-abstractness.png)
 
-When designing your application, you have to take both instability and abstractness
-into your mind. A good designed appliction will have stable abstract types and
+When designing your application, you have to keep instability and abstractness
+in mind. A well designed appliction will have stable abstract types and
 unstable implementations of those types. Combining these two gives you the best
-chance in creating maintainable code. This is however the theory, and the image
-above shows you how good your code behaves in this aspect.
+chance of creating maintainable code. This is however theroretical, and the image
+above shows you how well your code behaves in this aspect.
 
-In the center you have the green zone. This is the place you want your assembly to
+In the middle you have the green zone. This is the place you want your assembly to
 be. It goes from the fully abstract stable assemblies in the top left to the 
-unstable but implemented zone on the right bottom. 
+unstable but implemented zone on the bottom right. 
 
-Next to the green zone you will find the orange "Danger Zones". These are assemblies
+Next to the green zone you will find the orange "Danger zones". These are assemblies
 that are moving in the wrong direction, but are not that bad (yet).
 
 In the top right corner you will find the "Zone of Uselessness". Assemblies ending
-up here are abstractions that are not very usefull. For example assembly with all kinds
-of interfaces but those interfaces are used in only one other assembly.
+up here are abstractions that are not very usefull. For example: An assembly with all kinds
+of interfaces but those interfaces are used only in one other assembly.
 
 The bottom right corner is the worst place to find your assembly in. The "Zone of
-Pain" is the place where you have code that is referenced a lot, but are all
-implementations instead of abstractions. The zone of pain is the place you find yourself
-fixing a bug because of a code change you did not expect to affect that many things.
+Pain" is the place where you have code that is referenced a lot, but all are
+implementations instead of abstractions. The zone of pain is the place where you find yourself
+in fixing a bug because of a code change you did not expect to affect that many things.
 
-The main thing you are measuring here is if your software depends on interfaces in stead
+The main thing you are measuring here is if your software depends on interfaces instead
 of implementations. Having this balance in order makes your life a lot easier.
 
 ## Coupling & Cohesion
@@ -215,7 +213,7 @@ When designing software, you should take the following into account:
 But what does this actually mean?
 
 ### Coupling
-A methods and classes are coupled to each other when one uses a part of the other. For
+Methods and classes are coupled when one uses a part of the other. For
 example when you have a line of code in your class doing this: 
 
 ```cs 
@@ -232,64 +230,65 @@ It's much better to be coupled to an interface than an implementation.
 
 When measuring coupling from a certain class, there are 2 types:
  - Afferent coupling: number of entities (methods/classes/assemblies) that are dependend on this entity
- - Efferent coupling: number of entities (methods/classes/)assemblies) that this entity depends upon
+ - Efferent coupling: number of entities (methods/classes/assemblies) that this entity depends upon
 
 In both cases, you want that number to be as low as possible to keep your maintainability as high as possible.
 
 ### Cohesion
-A class is cohesive if everything that the class needs to do it job is within the class. This is a very hard thing to measure, so they made a metric that might do the
-trick a bit.
+A class is cohesive if everything that the class needs to do its job exists within the class. 
+This is a very hard thing to measure, so they made a metric that might do the trick a bit.
 
 The LCOM (Lack of cohesion) is a number between 0 and 1. A class containing only
-methods using all of the internal fields get rewarded with a nice 0. When none
+methods using all of the internal fields gets rewarded with a nice 0. When none
 of the methods in the class use any of the internal fields, it gets a nice 1. 
 
-A result below 0.5 is considered as a good result. Above 0.7 there might be a small 
+A result below 0.5 is considered a good result. Above 0.7 there might be a small 
 problem and above 0.8 you're not very cohesive. Keep this number as low as possible
-aw well.
+as well.
 
 ### Coupling & Cohesion together
 ![Coupling and Cohesion](images/static-code-analysis-metrics-coupling-cohesion.png)
 
 This time the box size is the amount of types using the specific class. The color
-is the lack of cohesion of the methods in that type. The type on the top right could
+is the lack of cohesion of the methods in that class. The class on the top left could
 be a class that is badly designed, because it's functionality is not contained within
 the specific class.
 
 # nDepend added values
-For the creation of this blog, I've been using nDepend. NDepend is a tool, integrated
-in Visual Studio or via the buildserver, that can be used for much more than what I've
-described here. 
+For the creation of this blog, I've been using nDepend. nDepend is a tool, integrated
+in Visual Studio or integrated in the buildserver, that can be used for much more than 
+what I've described here. 
 
 ## More data
 ![Query your code](images/static-code-analysis-rules.png#right)
+
 All the data of your code is being stored in nDepend and can be queried via linq 
 queries. This gives you the ability to quickly query your code. In the example I 
 query the code, requesting the top 50 methods with the highest Cyclomatic Complexity.
 
 ## Rules
-However, you can do more: from these queries you are able to create rules. For example 
+However, you can do more: from these queries you are able to create rules. For example,
 you can create a rule that enforces all methods containing more than 100 lines
-of code, should have a cyclomatic complexity of maximum 10 or the method name should 
-not contain your first name. 
+of code to have a cyclomatic complexity of maximum 10 or the method name to not contain
+your first name. 
 
-You can also define rules as critical, this is of partically use if you use the build
+You can also define rules as critical, this is particulary of use if you use the build
 server integration.
 
 ## Build Server step
-When you put nDepend as a build step in your pipeline, you can get a nice graph and 
+When you configure nDepend as a build step in your pipeline, you can get a nice graph and 
 overview of how your code is evolving over time. You can detect pitfalls and bad code
 practices earlier, when it is still easy to overcome them.
 
 The coolest thing however is when you integrate the build server in a setup with critical
-rules, these are really enforced. Having critical rule hits in your code will trigger a
+rules, these are really enforced. Breaking a critical rule in your code will trigger a
 build step failure and will stop that code from ever entering production.
 
 # Final thoughts
 When I was first asked to venture on a journey through static code analysis, I had no 
 idea what to expect. Even after the first two hours of looking at the charts, data
-and controls had me confused. After a while I got the hang of it and now I really see
-what added benefit having static code analysis could bring.
+and controls, it had me confused. After a while I got the hang of it and now I really see
+the added benefits of having static code analysis.
  - It enables you to find code smells and potential errors
  - It enables you to get to know code you have never seen before
  - It enables you and other developers to get to know best practices
