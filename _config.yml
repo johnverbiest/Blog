@@ -2,7 +2,6 @@
 title: "John's Magic Cave"
 url: "https://blog.johnverbiest.be"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
 baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
-#timezone: Asia/Chongqing
 description: "Turning idea's into working software"
 
 # Your information
@@ -10,17 +9,15 @@ email: john@johnverbiest.be
 author: John Verbiest
 avatar: "//www.gravatar.com/avatar/55d07ea5ab0fdc21a29c10eed2be1be8?d=mm&s=135"
 profile: Turning ideas into software since 2006.
-#twitter_username: twitter_username
+twitter_username: John_Verbiest
 github_username:  johnverbiest
 profile_links:
   Email: "mailto:john@johnverbiest.be"
-  GitHub: "https://github.com/johnverbiest"
+  LinkedIn: "https://www.linkedin.com/in/john-verbiest/"
   # You can add more profile links above, or edit _includes/sidebar.html 
 
-# Comment Service (Disqus or 多说)
-#  choose one and un-comment the line to active it
-disqus_shortname: blog-johnverbiest-be   # get one: https://disqus.com/admin/signup/
-#duoshuo_shortname: xxx  # get one: http://duoshuo.com/create-site/
+# Comment Service 
+disqus_shortname: blog-johnverbiest-be 
 
 excerpt_separator: <!--more-->
 
@@ -28,7 +25,6 @@ header:
   links:             # Links on the header. Link to in-site page with a slash as prefix
     About: /about/
     Category: /category/
-    # Donate: https://laobubu.net/donate.html
 
 permalink: pretty
 plugins:
