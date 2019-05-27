@@ -31,7 +31,18 @@ $header-fg: #FFF;
     }
 }
 
-
+img[src*='#left'] {
+  float: left;
+  max-width: 20%
+}
+img[src*='#right'] {
+  float: right;
+  max-width: 20%
+}
+img[src*='#center'] {
+  display: block;
+  margin: auto;
+}
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
