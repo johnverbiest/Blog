@@ -9,9 +9,9 @@ description: "Turning idea's into working software"
 email: john@johnverbiest.be
 author: John Verbiest
 avatar: "//www.gravatar.com/avatar/55d07ea5ab0fdc21a29c10eed2be1be8?d=mm&s=135"
-profile: One sentence introducing yourself.
+profile: Turning ideas into software since 2006.
 #twitter_username: twitter_username
-#github_username:  github_username
+github_username:  johnverbiest
 profile_links:
   Email: "mailto:john@johnverbiest.be"
   GitHub: "https://github.com/johnverbiest"
@@ -19,7 +19,7 @@ profile_links:
 
 # Comment Service (Disqus or 多说)
 #  choose one and un-comment the line to active it
-#disqus_shortname: xxx   # get one: https://disqus.com/admin/signup/
+disqus_shortname: blog-johnverbiest-be   # get one: https://disqus.com/admin/signup/
 #duoshuo_shortname: xxx  # get one: http://duoshuo.com/create-site/
 
 excerpt_separator: <!--more-->
@@ -30,7 +30,7 @@ header:
     Category: /category/
     # Donate: https://laobubu.net/donate.html
 
-permalink: /archivers/:title
+permalink: pretty
 plugins:
  - jekyll-paginate
  - jekyll-gist
