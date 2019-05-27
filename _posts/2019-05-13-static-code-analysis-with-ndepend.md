@@ -3,7 +3,7 @@ title: My first babysteps in static code analysis with nDepend
 categories: [code, code analysis]
 ---
 # Introduction
-![Sherlock Holmes](images/sherlock-holmes.png#right)
+![Sherlock Holmes](/assets/sherlock-holmes.png#right)
 A few weeks ago, I was asked to look into static code analysis, mainly with the tool
 nDepend. I've never had any experience with static code analysis, and was fairly
 curious about what this was all about. 
@@ -18,7 +18,7 @@ tool and I will be ending my post with a small overview of what nDepend has to o
 You might not know it, but in most IDE's we already use static code analysis all the
 time. However it is wrapped into a nice package known as IDE features. 
 
-![Static code analysis ide features](images/static-code-analysis-ide.png)
+![Static code analysis ide features](/assets/static-code-analysis-ide.png)
 
 As you can see in the image above, I can get 4 kinds of static code analysis from
 this little snippet of code in Visual Studio alone. 
@@ -58,14 +58,14 @@ should be refactored on the earliest convenience.
 
 When you request the metric to be displayed, it shows up like this:
 
-![Cyclomatic Complexity](images/static-code-analysis-cyclomatic-complexity.png)
+![Cyclomatic Complexity](/assets/static-code-analysis-cyclomatic-complexity.png)
 
 The first time I saw this one, I was like: what am I looking at? Ain't nobody can
 read that. But I got it figured out, and this is how it works: 
 
 ### Reading an nDpend metrics chart
 #### Settings on top and to the right
-![Settings](images/static-code-analysis-metrics-top.png)
+![Settings](/assets/static-code-analysis-metrics-top.png)
 
 On the top you will find the following:
 
@@ -81,7 +81,7 @@ of the `Color`-selected-metric correspondents with what color.
 
 
 #### Boxes, boxes, boxes
-![Assembly](images/static-code-analysis-metrics-assembly.png)
+![Assembly](/assets/static-code-analysis-metrics-assembly.png)
 
 Inside the blue square you see the biggest kind of box in the graph. Surrounded by a
 thick yellow line (remember: never eat yellow lines) you will find all code within an
@@ -91,19 +91,19 @@ For this example specifically, the `size` setting has been set to lines of code.
 This means the size of the box represents the amount of lines in the code, relative
 to all lines of code in the solution.
 
-![namespace](images/static-code-analysis-metrics-namespace.png)
+![namespace](/assets/static-code-analysis-metrics-namespace.png)
 
 This time the blue square surrounds a namespace. It's not so clear to see, but the 
 namespace is being surrounded by a thin, non-edible yellow line. The size is again
 a representation of the amount of lines of code.
 
-![class](images/static-code-analysis-metrics-class.png)
+![class](/assets/static-code-analysis-metrics-class.png)
 
 The next step in this graph is evidently a class. They are found by looking at the
 slightly darker borders making a square. And you guessed it correctly, again the size
 is dependant on the lines of code.
 
-![method](images/static-code-analysis-metrics-method.png)
+![method](/assets/static-code-analysis-metrics-method.png)
 
 The final and smallest part in the chart is a method. They should be hard to see in 
 an overview this large, but this particulary codebase has some big (read: huge) methods.
@@ -112,7 +112,7 @@ All these levels together give you a nice overview on how the distribution of li
 of code is in your solution. 
 
 #### Color
-![Color](images/static-code-analysis-cyclomatic-complexity.png)
+![Color](/assets/static-code-analysis-cyclomatic-complexity.png)
 
 Going back to the cyclomatic complexity graph without any blue boxes. When we look
 at the colour settings you see that I have selected the "IL Cyclomatic Complexity" 
@@ -126,7 +126,7 @@ complex methods in the system, with the bulk of them on the bottom left corner i
 the XSL assembly.
 
 #### Diving to your method
-![Complex Method Of 723](images/static-code-analysis-cyclomatic-complexity-method.png)
+![Complex Method Of 723](/assets/static-code-analysis-cyclomatic-complexity-method.png)
 
 Whenever you click a "box" in the graph, you get redirected to the method representing
 that box. The example above has a cyclomatic complexity of 723 (only part of the method
@@ -144,7 +144,7 @@ numbers are based only on his gutfeeling and his experience.
 He states that functions should not be a 100 lines long. In fact they should hardly be
 20 lines long. 
 
-![LOC vs rank](images/static-code-analysis-metrics-loc.png)
+![LOC vs rank](/assets/static-code-analysis-metrics-loc.png)
 
 This is the same codebase as the previous example. However the size of the boxes is
 dependent on it's rank now. Rank is a metric based on the Google Rank system where 
@@ -178,7 +178,7 @@ types within the assembly are only interfaces or abstract classes.
 
 ### Stability vs Abstractness
 Combining the two together, you can get the following graph:
-![Instability vs abstractness](images/static-code-analysis-metrics-instability-vs-abstractness.png)
+![Instability vs abstractness](/assets/static-code-analysis-metrics-instability-vs-abstractness.png)
 
 When designing your application, you have to keep instability and abstractness
 in mind. A well designed appliction will have stable abstract types and
@@ -247,7 +247,7 @@ problem and above 0.8 you're not very cohesive. Keep this number as low as possi
 as well.
 
 ### Coupling & Cohesion together
-![Coupling and Cohesion](images/static-code-analysis-metrics-coupling-cohesion.png)
+![Coupling and Cohesion](/assets/static-code-analysis-metrics-coupling-cohesion.png)
 
 This time the box size is the amount of types using the specific class. The color
 is the lack of cohesion of the methods in that class. The class on the top left could
@@ -260,7 +260,7 @@ in Visual Studio or integrated in the buildserver, that can be used for much mor
 what I've described here. 
 
 ## More data
-![Query your code](images/static-code-analysis-rules.png#right)
+![Query your code](/assets/static-code-analysis-rules.png#right)
 
 All the data of your code is being stored in nDepend and can be queried via linq 
 queries. This gives you the ability to quickly query your code. In the example I 
