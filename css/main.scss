@@ -31,6 +31,17 @@ $header-fg: #FFF;
     }
 }
 
+
+img[src*='#leftIcon'] {
+  float: left;
+  max-width: 20%
+  max-height: 10em;
+}
+img[src*='#rightIcon'] {
+  float: right;
+  max-width: 20%
+  max-height: 10em;
+}
 img[src*='#left'] {
   float: left;
   max-width: 20%
