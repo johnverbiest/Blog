@@ -2,6 +2,7 @@
 title: My first babysteps in static code analysis with nDepend
 categories: [code, code analysis]
 tags: [code, analysis, nDepend, legacy]
+excerpt_separator: <!--more-->
 ---
 ![Sherlock Holmes](/assets/sherlock-holmes.png#rightIcon)
 A few weeks ago, I was asked to look into static code analysis, mainly with the tool
@@ -13,6 +14,7 @@ difference is with dynamic code analysis and when to use it. After that I will b
 covering some metrics and conclusions you can get from a static code analysis
 tool and I will be ending my post with a small overview of what nDepend has to offer.
 
+<!--more-->
 # Static code analysis
 ## What is it?
 You might not know it, but in most IDE's we already use static code analysis all the
