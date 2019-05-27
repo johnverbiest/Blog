@@ -1,8 +1,8 @@
 ---
 title: My first babysteps in static code analysis with nDepend
 categories: [code, code analysis]
+tags: [code, analysis, nDepend, legacy]
 ---
-# Introduction
 ![Sherlock Holmes](/assets/sherlock-holmes.png#rightIcon)
 A few weeks ago, I was asked to look into static code analysis, mainly with the tool
 nDepend. I've never had any experience with static code analysis, and was fairly
