@@ -1,14 +1,14 @@
 # Site settings
-title: "John's Magic Cave"
+title: "John's Coding Cave"
 url: "https://blog.johnverbiest.be"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
 baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
-description: "Turning idea's into working software"
+description: Turning ideas into working software since 2006.
 
 # Your information
 email: john@johnverbiest.be
 author: John Verbiest
 avatar: "//www.gravatar.com/avatar/55d07ea5ab0fdc21a29c10eed2be1be8?d=mm&s=135"
-profile: Turning ideas into software since 2006.
+profile: Turning ideas into working software since 2006.
 twitter_username: John_Verbiest
 #github_username:  johnverbiest
 profile_links:
