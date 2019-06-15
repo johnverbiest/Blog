@@ -52,3 +52,10 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
   math_engine: mathjax
+
+
+plantuml:
+  url:          'http://www.plantuml.com/plantuml' 
+  type:         'svg'
+  ssl_noverify: '0'
+  http_debug:   '0'
