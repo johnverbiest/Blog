@@ -1,6 +1,6 @@
 namespace BlogExamples.Dependencies
 {
-    public interface IDependency2
+    public interface IDependency3
     {
         int Result(string input);
     }

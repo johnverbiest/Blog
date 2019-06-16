@@ -1,4 +1,4 @@
-namespace BlogExamples.Properties
+namespace BlogExamples.Dependencies
 {
     public interface IDependency1
     {

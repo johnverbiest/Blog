@@ -64,6 +64,7 @@
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
+        <Reference Include="System.Xml.Linq" />
         <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
           <HintPath>..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
           <Private>True</Private>
@@ -83,7 +84,14 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="AwesomeClass.cs" />
+        <Compile Include="Dependencies\IDependency1.cs" />
+        <Compile Include="Dependencies\IDependency2.cs" />
+        <Compile Include="Dependencies\IDependency3.cs" />
+        <Compile Include="Dependencies\IDependency4.cs" />
+        <Compile Include="IAwesomeClass.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Tests\AwesomeClassTests.cs" />
+        <Compile Include="Tests\UnitTestAttribute.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
