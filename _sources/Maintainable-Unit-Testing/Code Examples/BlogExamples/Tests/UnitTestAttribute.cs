@@ -7,7 +7,7 @@ namespace BlogExamples.Tests
     /// <summary>
     /// This is the base test attribute, used in almost all the in-memory unit tests.
     /// Whenever a special configuration is required (example: for implementation tests)
-    /// You can use the 
+    /// you can use the static CreateBasicFixture as a base.
     /// </summary>
     public class UnitTestAttribute : AutoDataAttribute
     {

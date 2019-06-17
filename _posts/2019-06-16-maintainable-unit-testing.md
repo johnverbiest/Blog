@@ -12,13 +12,13 @@ After a visit to Techorama in Antwerp in 2017, I found some insights in unit tes
 When you write code the TDD way, you follow these steps:
 
 1. Write a (failing) unit test for something your Unit has to do
-2. Write the implementation in your Unit, with the least amount of effort.
+2. Write the implementation in your Unit, with the least amount of effort
 3. Refactor and repeat
 
-Following these steps lead to hundreds of Unit Tests throughout your code base. And this is good until you have to change something.
+Following these steps leads to hundreds of Unit Tests throughout your code base. And this is good until you have to change something.
 
 ## Issue 1: Dependency Change
-Imagine this: you have a great Class with 20 useful methods, thoroughly tested, and you want to add some functionality. At the moment, your Class looks a little like this:
+Imagine this: you have a great class with 20 useful methods, thoroughly tested, and you want to add some functionality. At the moment, your class looks a little like this:
 
 ```cs
 public class AwesomeClass : IAwesomeClass
@@ -86,7 +86,7 @@ public void DoAThing_WhenCalled_ShouldCallDependency1ForResult()
 // Fluff omitted
 ```
 
-When you want to implement the new feature, however, you need to add a new dependency in the constructor of the Class, and now TDD Hell emerges. Instantly you have all your old tests broken, and you can start fixing this one by one. Fixing all your tests is a tedious, dangerous, and above all boring job. We're developers: we don't like boring work. We need to address this.
+When you want to implement the new feature, however, you need to add a new dependency in the constructor of the Class, and now TDD Hell emerges. Instantly you have all your old tests broken, and you can start fixing these one by one. Fixing all your tests is a tedious, dangerous, and, above all, boring job. We're developers: we don't like boring work. We need to address this.
 
 
 ## Issue 2: Focus on what matters
@@ -128,7 +128,7 @@ As you can see, there are 7 lines of code in the "arrange" phase, 1 line of code
 3. Is it necessary that the value of "withThat" is "3" specifically?
 4. Will the test fail if I change any of the previous values? 
 
-To address this issue, I made some ground rules for myself:
+To address these issues, I made some ground rules for myself:
 1. Tests should be as short as possible
 2. If the value of some variable is not important, it should be clear.
 3. If the value of a variable is important, set it in the "arrange" phase.
@@ -138,18 +138,18 @@ These rules produce short unit tests, where it is clear to see what is essential
 # Introducing another way of testing
 ## Library 1: Autofixture
 If the value of some specific variable is not crucial for a test, It should be random.
-To make this happen, You can use a library called AutoFixture. This library can generate random values for whatever concrete type you ask. Even complex and nested types are no issue for AutoFixture. 
+To make this happen, You can use a library called [AutoFixture](https://github.com/AutoFixture/AutoFixture). This library can generate random values for whatever concrete type you ask. Even complex and nested types are no issue for AutoFixture. 
 
 ```cs
 [Fact]
 public void Lib1Autofixture()
 {
     // Arrange
-    var fixture = new Fixture();
     var dep1 = A.Fake<IDependency1>();
     var dep2 = A.Fake<IDependency2>();
     var dep3 = A.Fake<IDependency3>();
     var dep4 = A.Fake<IDependency4>();
+    var fixture = new Fixture();
     var withThis = fixture.Create<string>();
     var withThat = fixture.Create<int>();
 
@@ -184,18 +184,18 @@ public void Lib2AutofixtureXunit2(string withThis, int withThat)
     A.CallTo(() => dep1.Result(withThis)).MustHaveHappenedOnceExactly();
 }
 ```
-As you can see, the unit test starts to be cleaned up now and is becoming more readable.
+As you can see, the unit test starts to get cleaner and is becoming more readable.
 
 ## Library 3: AutoFixture.AutoFakeItEasy
-If you were to ask an instance of the "AwesomeClass" in your test method parameters, you would get an exception. AutoFixture is designed only to create implementations of concrete classes however the constructor of the "AwesomeClass" requests 4 implementations of interfaces. Now we customize the AutoData attribute so that it can provide implementations of interfaces via AutoFakeItEasy.
+If you were to ask for an instance of the "AwesomeClass" in your test method parameters, you would get an exception. AutoFixture is designed to only create implementations of concrete classes, but the constructor of the "AwesomeClass" needs 4 implementations of interfaces. However, we can customize AutoFixture so that it's capable of providing implementations for interfaces via the AutoFakeItEasy library.
 
-To facilitate this, we have to create a new attribute, inheriting from the AutoData attribute. I like to call this my "UnitTestAttribute" as all this thing does is providing implementations for unit tests.
+To facilitate this, we have to create a new attribute, inheriting from the AutoData attribute. I like to call this my "UnitTestAttribute" as all this thing does is provide implementations for unit tests.
 
 ```cs
 /// <summary>
 /// This is the base test attribute, used in almost all the in-memory unit tests.
 /// Whenever a special configuration is required (example: for implementation tests)
-/// You can use the 
+/// you can use the static CreateBasicFixture as a base.
 /// </summary>
 public class UnitTestAttribute : AutoDataAttribute
 {
