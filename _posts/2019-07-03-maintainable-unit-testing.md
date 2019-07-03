@@ -28,7 +28,7 @@ public class AwesomeClass : IAwesomeClass
     private readonly IDependency3 _dep3;
     private readonly IDependency4 _dep4;
 
-    public AwesomeClass(IDependency1 dep1, IDependency2 dep2 ,IDependency3 dep3, IDependency4 dep4)
+    public AwesomeClass(IDependency1 dep1, IDependency2 dep2, IDependency3 dep3, IDependency4 dep4)
     {
         _dep1 = dep1;
         _dep2 = dep2;
