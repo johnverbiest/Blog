@@ -8,6 +8,8 @@ I'm a big fan of Test Driven Development. I try to push my enthusiasm to my coll
 
 After a visit to Techorama in Antwerp in 2017, I found some insights in unit testing that changed the way I write code and unit tests. Here's my story.
 
+<!--more-->
+
 # Defining the problem
 When you write code the TDD way, you follow these steps:
 
