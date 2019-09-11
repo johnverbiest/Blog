@@ -1,7 +1,7 @@
 ---
 title: Analyzing website memory dumps
 categories: [code, code analysis, azure, windbg, dotMemory]
-tags: [code, analysis, legacy, memdump, windbg, dotMemor]
+tags: [code, analysis, legacy, memdump, windbg, dotMemory]
 ---
 ![Bug](/assets/azure-memdump.png#rightIcon)
 When debugging a production website, Application Insights sometimes is not enough, and you need more powerful tools.
@@ -54,4 +54,19 @@ Below is a screenshot of both dotMemory and WinDbg and the difference in the use
 
 To be specific: dotMemory is on the left of the red line, WinDbg on the right.
 
-# Step three: Initial analyisis with dotMemory
+# Step 3: General analysis with dotMemory
+To open our memory dump, click "Import Dump", select the correct file, and click "Open".
+
+![open dotMemory](/assets/azure-memdump-open-dotMemory.png)
+
+It will show some screens and do some initial analytics. After you went through them you should see something like this:
+
+![Initial analytics](/assets/azure-memdump-dotmemory-initial.png)
+
+It was quite obvious there was a problem. There is 450.49 MB worth of string data in memory. Another problem that pops up is that three objects in memory hold about 415.96MB of data. That can't be a coincidence.
+
+![Drilling down](/assets/azure-memdump-dotmemory-biglist.png)
+
+By clicking the "3xEnumerable...", followed by opening one of those three, I got the data above. In the list there are 530 038 items, accounting to more than 146Mb of data for a single API call. Adding the knowledge that at the time this memory dump was taken, there were three of those lists; there could be only one conclusion. This list must be the cause of the problem. 
+
+Sadly dotMemory did not allow me to pinpoint what call caused this situation, so a deeper dive had to be taken, straight into the deep waters of WinDbg.
