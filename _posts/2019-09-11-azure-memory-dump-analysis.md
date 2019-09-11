@@ -1,7 +1,7 @@
 ---
 title: Analyzing website memory dumps
-categories: [code, code analysis, azure, windbg]
-tags: [code, analysis, legacy, memdump, windbg]
+categories: [code, code analysis, azure, windbg, dotMemory]
+tags: [code, analysis, legacy, memdump, windbg, dotMemor]
 ---
 ![Bug](/assets/azure-memdump.png#rightIcon)
 When debugging a production website, Application Insights sometimes is not enough, and you need more powerful tools.
@@ -42,3 +42,16 @@ Creation of a memory dump can take a while, depending on how much memory your ap
 ![Download Memory Dump](/assets/azure-memdump-memdump-done.png)
 
 You can open the "Azure analysis" on the right of the screen. The dumps themselves show on the right. For our next steps, we are going to need the dump on our hard drive, so download away.
+
+# Step two: getting more tools
+For my analysis today, I made use of two tools. The first tool was [JetBrains dotMemory](https://www.jetbrains.com/dotmemory/), and the other one is [WinDbg](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools). At last, I've downloaded an extension called [SOSex](http://www.stevestechspot.com/). 
+
+My experience with these tools is that dotMemory is a friendly general analysis tool to pinpoint problems generally. With WinDbg, you can dig deep into the data, but it is hard to have a general overview of what is happening.
+
+Below is a screenshot of both dotMemory and WinDbg and the difference in the user interface is very clear. 
+
+![dotMemory vs windbg](/assets/azure-memdump-dotmemory-vs-windbg.png)
+
+To be specific: dotMemory is on the left of the red line, WinDbg on the right.
+
+# Step three: Initial analyisis with dotMemory
