@@ -44,7 +44,7 @@ Creation of a memory dump can take a while, depending on how much memory your ap
 You can open the "Azure analysis" on the right of the screen. The dumps themselves show on the right. For our next steps, we are going to need the dump on our hard drive, so download away.
 
 # Step two: getting more tools
-For my analysis today, I made use of two tools. The first tool was [JetBrains dotMemory](https://www.jetbrains.com/dotmemory/), and the other one is [WinDbg](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools). Lastly, I've downloaded an extension called [SOSex](http://www.stevestechspot.com/). 
+For my analysis today, I made use of two tools. The first tool was [JetBrains dotMemory](https://www.jetbrains.com/dotmemory/), and the other one is [WinDbg](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools). Lastly, I've downloaded two extensions: one called [SOSex](http://www.stevestechspot.com/) and another called [MEX](https://www.microsoft.com/en-us/download/details.aspx?id=53304&6B49FDFB-8E5B-4B07-BC31-15695C5A2143=1)
 
 My experience with these tools is that dotMemory is a friendly general analysis tool to pinpoint problems generally. With WinDbg, you can dig deep into the data, but it is hard to have a general overview of what is happening.
 
@@ -93,7 +93,7 @@ First of all, it is time to start WinDbg. When you have this open (and you use t
 If opened, your screen will look a bit like above. You type commands in the command bar, and you see the results above that. And now the fun begins!
 ```.load C:\Users\john.verbiest\Downloads\SOS(1).dll``` type this command to load the SOS tools from Azure (replace the path with the correct one, and yes, it starts with a dot). If all is good, you will see no response at all.
 ```.load C:\Users\john.verbiest\Downloads\sosex_32\sosex.dll``` type this command to load the extensions. Replace the path, and if you did it all correctly, you get no response.
-```!eeheap``` type this command to make an index for the extensions to use, this makes debugging a smidgen faster.
+```!hbi``` type this command to make an index for the extensions to use, this makes debugging a smidgen faster.
 
 Ready to dive? Let's go!
 
@@ -173,59 +173,7 @@ Child SP       IP Call Site
 4fcbea14 8b55979c NHibernate.Engine.Cascade.CascadeOn(NHibernate.Persister.Entity.IEntityPersister, System.Object, System.Object)
 4fcbea58 8b5594ad NHibernate.Event.Default.AbstractFlushingEventListener.CascadeOnFlush(NHibernate.Event.IEventSource, NHibernate.Persister.Entity.IEntityPersister, System.Object, System.Object)
 4fcbea8c 8b5590f7 NHibernate.Event.Default.AbstractFlushingEventListener.PrepareEntityFlushes(NHibernate.Event.IEventSource)
-4fcbeab8 8b558d07 NHibernate.Event.Default.AbstractFlushingEventListener.FlushEverythingToExecutions(NHibernate.Event.FlushEvent)
-4fcbeae8 7de8435d NHibernate.Event.Default.DefaultAutoFlushEventListener.OnAutoFlush(NHibernate.Event.AutoFlushEvent)
-4fcbeb00 7de841fe NHibernate.Impl.SessionImpl.AutoFlushIfRequired(Iesi.Collections.Generic.ISet`1<System.String>)
-4fcbeb94 7de8066f NHibernate.Impl.SessionImpl.List(NHibernate.Impl.CriteriaImpl, System.Collections.IList)
-4fcbec3c 051bfe92 NHibernate.Impl.CriteriaImpl.List(System.Collections.IList)
-4fcbec60 8e542b9a NHibernate.Impl.CriteriaImpl.List[[System.__Canon, mscorlib]]()
-4fcbec74 8e54d092 NHibernate.Criterion.QueryOver`1[[System.__Canon, mscorlib]].List[[System.__Canon, mscorlib]]()
-4fcbec84 8e54d04a NHibernate.Criterion.QueryOver`1[[System.__Canon, mscorlib]].NHibernate.IQueryOver.List[[System.__Canon, mscorlib]]()
-4fcbec94 a6d12cd1 hannibal.HBBusiness.Queries.Reporting.AgendaOverzicht.LessenSubReportDataService.b__5_0(hannibal.HBBusiness.Queries.AuteurTool.BeheerEKitContent.IFicheLesMateriaalDto)
-4fcbecfc 4700f9db System.Linq.Enumerable+d__17`2[[System.__Canon, mscorlib],[System.__Canon, mscorlib]].MoveNext()
-4fcbed24 36e5c940 System.Linq.Buffer`1[[System.__Canon, mscorlib]]..ctor(System.Collections.Generic.IEnumerable`1<System.__Canon>)
-4fcbed64 428a6dad System.Linq.Enumerable.ToArray[[System.__Canon, mscorlib]](System.Collections.Generic.IEnumerable`1<System.__Canon>)
-4fcbed8c a6d128cf hannibal.HBBusiness.Queries.Reporting.AgendaOverzicht.LessenSubReportDataService.GeefMaterialen(System.Guid[])
-4fcbeda4 ad1991f6 hannibal.HBBusiness.Queries.Reporting.AgendaOverzicht.AgendaOverzichtReportDataQueryHandler.Execute(hannibal.HBBusiness.Queries.Reporting.AgendaOverzicht.AgendaOverzichtReportDataQuery)
-4fcbedcc 051b5880 hannibal.HBBusiness.Infrastructure.Queries.QueryDispatcher.ExecuteHandler[[System.__Canon, mscorlib]](hannibal.HBBusiness.Infrastructure.Queries.IQuerySpecification`1<System.__Canon>, System.Object)
-4fcbee14 6e76e247 hannibal.HBBusiness.Infrastructure.Queries.QueryDispatcher.Dispatch[[System.__Canon, mscorlib]](hannibal.HBBusiness.Infrastructure.Queries.IQuerySpecification`1<System.__Canon>)
-4fcbee7c ad198f5c hannibal.HBWeb.Areas.Agenda.Controllers.AgendaAfdrukController.AgendaOverzicht(hannibal.HBBusiness.Queries.Reporting.AgendaOverzicht.AgendaOverzichtReportDataQuery)
-4fcbee90 6e5936bc DynamicClass.lambda_method(System.Runtime.CompilerServices.Closure, System.Web.Mvc.ControllerBase, System.Object[])
-4fcbeea0 74da7d5c System.Web.Mvc.ActionMethodDispatcher.Execute(System.Web.Mvc.ControllerBase, System.Object[])
-4fcbeea8 74da768a System.Web.Mvc.ReflectedActionDescriptor.Execute(System.Web.Mvc.ControllerContext, System.Collections.Generic.IDictionary`2<System.String,System.Object>)
-4fcbeecc 74da751c System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(System.Web.Mvc.ControllerContext, System.Web.Mvc.ActionDescriptor, System.Collections.Generic.IDictionary`2<System.String,System.Object>)
-4fcbeee8 74da74e9 System.Web.Mvc.Async.AsyncControllerActionInvoker+c.b__9_0(System.IAsyncResult, ActionInvocation)
-4fcbef00 74da74b8 System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncResult`2[[System.__Canon, mscorlib],[System.Web.Mvc.Async.AsyncControllerActionInvoker+ActionInvocation, System.Web.Mvc]].CallEndDelegate(System.IAsyncResult)
-4fcbef08 74da70bb System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncResultBase`1[[System.__Canon, mscorlib]].End()
-4fcbef14 74da7482 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(System.IAsyncResult)
-4fcbef20 74da735b System.Web.Mvc.Async.AsyncControllerActionInvoker+AsyncInvocationWithFilters.b__11_0()
-4fcbef30 74da7235 System.Web.Mvc.Async.AsyncControllerActionInvoker+AsyncInvocationWithFilters+c__DisplayClass11_1.b__2()
-4fcbef64 74da7235 System.Web.Mvc.Async.AsyncControllerActionInvoker+AsyncInvocationWithFilters+c__DisplayClass11_1.b__2()
-4fcbef98 74da7235 System.Web.Mvc.Async.AsyncControllerActionInvoker+AsyncInvocationWithFilters+c__DisplayClass11_1.b__2()
-4fcbefcc 74da7235 System.Web.Mvc.Async.AsyncControllerActionInvoker+AsyncInvocationWithFilters+c__DisplayClass11_1.b__2()
-4fcbf000 74da71f0 System.Web.Mvc.Async.AsyncControllerActionInvoker+c__DisplayClass7_0.b__1(System.IAsyncResult)
-4fcbf004 74da71c8 System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncResult`1[[System.__Canon, mscorlib]].CallEndDelegate(System.IAsyncResult)
-4fcbf008 74da70bb System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncResultBase`1[[System.__Canon, mscorlib]].End()
-4fcbf014 74da6fc4 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(System.IAsyncResult)
-4fcbf020 74da6ee4 System.Web.Mvc.Async.AsyncControllerActionInvoker+c__DisplayClass3_6.b__3()
-4fcbf048 8b17d0cd System.Web.Mvc.Async.AsyncControllerActionInvoker+c__DisplayClass3_1.b__5(System.IAsyncResult)
-4fcbf070 8b17d030 System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncResult`1[[System.Boolean, mscorlib]].CallEndDelegate(System.IAsyncResult)
-4fcbf074 8b17cf33 System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncResultBase`1[[System.Boolean, mscorlib]].End()
-4fcbf080 8b17ce3e System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(System.IAsyncResult)
-4fcbf088 8b17cdf6 System.Web.Mvc.Controller+c.b__152_1(System.IAsyncResult, ExecuteCoreState)
-4fcbf09c 8b17cdc6 System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncVoid`1[[System.Web.Mvc.Controller+ExecuteCoreState, System.Web.Mvc]].CallEndDelegate(System.IAsyncResult)
-4fcbf0a4 8b17caf3 System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncResultBase`1[[System.Web.Mvc.Async.AsyncVoid, System.Web.Mvc]].End()
-4fcbf0b0 8b17cd66 System.Web.Mvc.Controller.EndExecuteCore(System.IAsyncResult)
-4fcbf0d4 8b17cd20 System.Web.Mvc.Controller+c.b__151_2(System.IAsyncResult, System.Web.Mvc.Controller)
-4fcbf0e0 8b17ccef System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncVoid`1[[System.__Canon, mscorlib]].CallEndDelegate(System.IAsyncResult)
-4fcbf0ec 8b17caf3 System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncResultBase`1[[System.Web.Mvc.Async.AsyncVoid, System.Web.Mvc]].End()
-4fcbf0f8 8b17ccbc System.Web.Mvc.Controller.EndExecute(System.IAsyncResult)
-4fcbf104 8b17cc8d System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(System.IAsyncResult)
-4fcbf10c 8b17cc3d System.Web.Mvc.MvcHandler+c.b__20_1(System.IAsyncResult, ProcessRequestState)
-4fcbf134 8b17cbfe System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncVoid`1[[System.Web.Mvc.MvcHandler+ProcessRequestState, System.Web.Mvc]].CallEndDelegate(System.IAsyncResult)
-4fcbf13c 8b17caf3 System.Web.Mvc.Async.AsyncResultWrapper+WrappedAsyncResultBase`1[[System.Web.Mvc.Async.AsyncVoid, System.Web.Mvc]].End()
-4fcbf148 8b17c9fe System.Web.Mvc.MvcHandler.EndProcessRequest(System.IAsyncResult)
-4fcbf154 8b17c9cc System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(System.IAsyncResult)
+ ....... omitted .......
 4fcbf15c 4e152882 System.Web.HttpApplication+CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
 4fcbf198 4d513b05 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep)
 4fcbf1ac 4d513854 System.Web.HttpApplication.ExecuteStep(IExecutionStep, Boolean ByRef)
@@ -300,8 +248,65 @@ Fields:
 ```
 And from here on you shall explore on your own. I managed to find the url and the parameters, and reproduce the issue this way. 
 
-# To be continued
-As I will debug more and more using WinDbg, I will add to this blog how I did debug some of the issues we've faced.
+# Debugging with MEX
+Everything above was before I've discovered MEX. With MEX it was much easier to get the data I've wanted. Mex adds a lot of missing functionality to debug .net code. Loading can be done by doing ```.load C:\windbg\x86\mex.dll``` or wherever you have installed mex into. A quick overview of its features:
+
+## !aspxpagesext
+This awesome call gives you insights of all ASPX request the server was doing at the time of the 
+```
+   Address  Completed Timeout Time (secs) ThreadId ReturnCode Verb Url
+   06ce6788       yes   19200                             302 GET  <Url>
+   06982728       yes   19200                             302 GET  <Url>
+   06d589d8       yes   19200                             302 POST <Url>
+   06e8b504       yes    7200                             304 GET  <Url>
+SL 07a6cc44        no   19200        1148                 200 GET  <Url>
+   07a707a4       yes    7200                             304 GET  <Url>
+AS 0a9254c8        no       0       14478                 200 GET  <Url>
+   0c1c0724       yes    7200                             304 GET  <Url>
+84 contexts found (84 displayed).
+   AS == possibly async request
+   SL == session locked
+```
+I omitted some requests (this page is getting pretty long already), but you get the picture. Clicking through the addresses gives you nice overviews of the objects using ```!mex.DisplayObj```
+
+## !tasktriage
+This will list all the active tasks, and their status. Applying -t will only show the tasks for the current thread and -v will also list finished tasks.
+```
+Address    Target     Status                         Method                                                               Exceptions
+====================================================================================================================================
+cce51f64 |   <null> | TASK_STATE_RAN_TO_COMPLETION | <null>                                                             |     <none>
+12949428 | 1294938c | TASK_STATE_DELEGATE_INVOKED  | Microsoft.ApplicationInsights.Channel.InMemoryTransmitter.Runner() |     <none>
+db9c29f4 |   <null> | TASK_STATE_RAN_TO_COMPLETION | <null>                                                             |     <none>
+0a962918 | 0a96276c | TASK_STATE_DELEGATE_INVOKED  | Microsoft.ApplicationInsights.Channel.InMemoryTransmitter.Runner() |     <none>
+e3e01224 |   <null> | TASK_STATE_RAN_TO_COMPLETION | <null>                                                             |     <none>
+e3e01140 |   <null> | TASK_STATE_RAN_TO_COMPLETION | <null>                                                             |     <none>
+e3e19d10 |   <null> | TASK_STATE_RAN_TO_COMPLETION | <null>                                                             |     <none>
+f2795fa8 |   <null> | TASK_STATE_RAN_TO_COMPLETION | <null>                                                             |     <none>
+0ac27d5c | 0ac27bb0 | TASK_STATE_DELEGATE_INVOKED  | Microsoft.ApplicationInsights.Channel.InMemoryTransmitter.Runner() |     <none>
+0ad31350 | 0ad311a4 | TASK_STATE_DELEGATE_INVOKED  | Microsoft.ApplicationInsights.Channel.InMemoryTransmitter.Runner() |     <none>
+0b755f94 | 0b755eec | TASK_STATE_DELEGATE_INVOKED  | Microsoft.ApplicationInsights.Channel.InMemoryTransmitter.Runner() |     <none>
+f27cd34c |   <null> | TASK_STATE_RAN_TO_COMPLETION | <null>                                                             |     <none>
+f27cd268 |   <null> | TASK_STATE_RAN_TO_COMPLETION | <null>                                                             |     <none>
+f27e7f4c |   <null> | TASK_STATE_RAN_TO_COMPLETION | <null>                                                             |     <none>
+====================================================================================================================================
+Address    Target     Status                         Method                                                               Exceptions
+```
+
+## !dumpaspnetsession
+With this command you are able to see the content of the session. However if you run session with Redis (as we do) you only get the session id and will get to be creative to get the rest.
+```
+0:042> !dumpaspnetsession -ctx 0x07594dcc
+Failed Reading .NET heap object at 12f23258. Heap may be incomplete.
+Could not find session 'ddasv1trqtdyn1wirt4teenx'
+```
+
+## Others
+You can get a list of all the commands via ```!mex.help```
+
+# Final words
+When your application gets to a state where it does no longer behave as expected, a memory dump can get useful. It is only helpful if you can make the dump during the error state of the application. When you are investigating high CPU usage, I would suggest other techniques such as a Trace Log. 
+
+I made this list of tools and techniques primarily for myself, so I can use it whenever an application goes bonkers on me. I will extend this blog post as I learn more about this topic. 
 
 # Commands Cheat Sheet
 
@@ -312,3 +317,15 @@ As I will debug more and more using WinDbg, I will add to this blog how I did de
 | !clrstack -l -p | CLR stack with locals and properties of current thread
 | ~~[1b84]s | Changing the current thread
 | !dumpheap -stat | statistics about the heap (# of types and usage)
+| !locks | finds the locks in the system
+| !VerifyHeap | validates managed heap integrity
+| !vmstat | shows info about the virtual memory
+| !dumpdomain | dumps out the applications domain
+| !threadpool | dumps out information on the clr thread pool
+| !gcroot | dumps out the reference chain of the object
+| !strings | dumps out all the strings
+| !threads | dumps out all threads and their last exception
+| !tasktriage | MEX - dump out all running tasks
+| !dumpaspnetsession | MEX - dump out aspnet session data (in Proc Only)
+| !aspxpagesext | MEX - dump out all aspnet running calls
+| !address -summary | dumps a summary of the memory usage
