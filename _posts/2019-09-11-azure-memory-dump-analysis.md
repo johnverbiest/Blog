@@ -17,7 +17,7 @@ Our service runs on multiple instances, and we needed the memory dump for that s
 ![Application Insights](/assets/azure-memdump-ai.png)
 
 In case of this screenshot, the instance name is RD0003FF22484C, but that will be different for your case. 
-There are other ways of detecting what instance is the naughty one. For example, you can use the application insights search option, or any other way to find the instance name
+There are other ways of detecting what instance is the naughty one. For example, you can use the application insights search option, or any other way to find the instance name.
 
 ## Requesting the memory dump
 You should request the memory dump while the mischief is happening. A memory dump is a snapshot of threads and memory of the running web app and does not contain historical data. Getting a memory dump when the error is no longer happening is pointless.
@@ -93,7 +93,6 @@ First of all, it is time to start WinDbg. When you have this open (and you use t
 If opened, your screen will look a bit like above. You type commands in the command bar, and you see the results above that. And now the fun begins!
 ```.load C:\Users\john.verbiest\Downloads\SOS(1).dll``` type this command to load the SOS tools from Azure (replace the path with the correct one, and yes, it starts with a dot). If all is good, you will see no response at all.
 ```.load C:\Users\john.verbiest\Downloads\sosex_32\sosex.dll``` type this command to load the extensions. Replace the path, and if you did it all correctly, you get no response.
-```!hbi``` type this command to make an index for the extensions to use, this makes debugging a smidgen faster.
 
 Ready to dive? Let's go!
 
@@ -186,7 +185,7 @@ Child SP       IP Call Site
 4fcbf4f8 0537f17a [ContextTransitionFrame: 4fcbf4f8] 
 ```
 
-this is a hell of a lot of data you should not read, but it shows you have the full stack trace of this thread and something to start working with. More usefull (and with more data) is the following command: ```!clrstack -l -p```. This will give you the same stack, but with all locals (-l) and all properties (-p) included. I will only show the most interesting one below: 
+this is a hell of a lot of data you should not read, but it shows you have the full stack trace of this thread and something to start working with. More useful (and with more data) is the following command: ```!clrstack -l -p```. This will give you the same stack, but with all locals (-l) and all properties (-p) included. I will only show the most interesting one below: 
 
 ```
 4fcbee7c ad198f5c hannibal.HBWeb.Areas.Agenda.Controllers.AgendaAfdrukController.AgendaOverzicht(hannibal.HBBusiness.Queries.Reporting.AgendaOverzicht.AgendaOverzichtReportDataQuery)
@@ -300,13 +299,76 @@ Failed Reading .NET heap object at 12f23258. Heap may be incomplete.
 Could not find session 'ddasv1trqtdyn1wirt4teenx'
 ```
 
+## !mex.DisplayObj
+Is an extended version of !dumpobject, with better deserialization and awesome views of objects.
+```
+0:052> !do 0x08331110
+Name:        System.Collections.Hashtable
+MethodTable: 213c08a8
+EEClass:     211e8a6c
+Size:        52(0x34) bytes
+File:        D:\Windows\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll
+Fields:
+      MT    Field   Offset                 Type VT     Attr    Value Name
+21411630  4001821        4 ...ashtable+bucket[]  0 instance 08331fcc buckets
+061ec9b0  4001822       18         System.Int32  1 instance       33 count
+061ec9b0  4001823       1c         System.Int32  1 instance       10 occupancy
+061ec9b0  4001824       20         System.Int32  1 instance       64 loadsize
+061edd50  4001825       24        System.Single  1 instance 0.720000 loadFactor
+061ec9b0  4001826       28         System.Int32  1 instance       37 version
+061eaa48  4001827       2c       System.Boolean  1 instance        0 isWriterInProgress
+061e947c  4001828        8 ...tions.ICollection  0 instance 00000000 keys
+061e947c  4001829        c ...tions.ICollection  0 instance 00000000 values
+1ff488bc  400182a       10 ...IEqualityComparer  0 instance 0f39ae78 _keycomparer
+061e6780  400182b       14        System.Object  0 instance 00000000 _syncRoot
+```
+
+Versus:
+0:052> !DisplayObj 0x08331110
+[raw] 08331110 System.Collections.Hashtable Entries: 3
+
+Key:   08331c64  "schooldatabase" [14] (System.String)
+Value: 08331ccc (System.Collections.Specialized.NameObjectCollectionBase+NameObjectEntry)
+
+Key:   08331f54  "displayNickname" [15] (System.String)
+Value: 08331fbc (System.Collections.Specialized.NameObjectCollectionBase+NameObjectEntry)
+
+Key:   083312b4  "vestiging_id" [12] (System.String)
+Value: 08331314 (System.Collections.Specialized.NameObjectCollectionBase+NameObjectEntry)
+
+
 ## Others
 You can get a list of all the commands via ```!mex.help```
+
+# Reading Redis Cache Values
+Mex has support for reading InProc session data built-in. However it is not uncommon to put session data in a Redis Cache to support multiple machines. To read the sessiondata you will have to navigate a bit. Be sure to open your objects with !Mex.DisplayObj
+ 1. Navigate to the HTTPContext of the call you want to debug
+ 2. Open the object within ```_sessionStateModule```
+ 3. Open the object within ```_rqSessionState ```
+ 4. Open the object within ```_sessionItems```
+ 5. Open the object within ```innerCollection```
+ 6. Open the object within ```_entriesTable``` -> This is the list of key/value pairs for the session
+ 7. Open the object within ```Value```, then again ```Value```
+ 8. Open the object within ```_serializedvalue```
+ 7. Read the serialized (binary) value
+
+
+# Now what was the problem anyway?
+We reasonably quickly found what we were looking for. There were 1 974 306 items of 4 specific types in memory, taking up 135MB. Because of this, the number of strings was going through the roof: 5 831 585 string taking up 505Mb of the stack. Knowing this process runs in a 32-bit environment, the stack only had 85Mb of free memory. 
+
+By doing a ```gcroot``` on one of the instances of one of the four types, I was able to find the thread these objects originated from.
+The stack trace of this thread allowed me to open the HttpContext. From there, we needed to identify the call that led to this HttpContext. This can be found in the HttpRequest object in this HttpContext, together with the form data. For the session data, I've used the steps for Redis above.
+
+After we identified the call, the session variables and the request body, we were able to reproduce the issue. 
+For some reason, we noticed an intensive memory increase when we did the call. After some debugging, we found out there were some edge cases when a SQL query omitted a where clause. With no where clause the complete table got loaded into memory (and it was a massive table). Fixing this issue had a substantial positive impact on performance.
+
 
 # Final words
 When your application gets to a state where it does no longer behave as expected, a memory dump can get useful. It is only helpful if you can make the dump during the error state of the application. When you are investigating high CPU usage, I would suggest other techniques such as a Trace Log. 
 
 I made this list of tools and techniques primarily for myself, so I can use it whenever an application goes bonkers on me. I will extend this blog post as I learn more about this topic. 
+
+
 
 # Commands Cheat Sheet
 
