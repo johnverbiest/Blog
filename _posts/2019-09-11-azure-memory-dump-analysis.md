@@ -251,7 +251,7 @@ And from here on you shall explore on your own. I managed to find the url and th
 Everything above was before I've discovered MEX. With MEX it was much easier to get the data I've wanted. Mex adds a lot of missing functionality to debug .net code. Loading can be done by doing ```.load C:\windbg\x86\mex.dll``` or wherever you have installed mex into. A quick overview of its features:
 
 ## !aspxpagesext
-This awesome call gives you insights of all ASPX request the server was doing at the time of the 
+This awesome call gives you insights of all ASPX requests the server was doing at the time of the memory dump.
 ```
    Address  Completed Timeout Time (secs) ThreadId ReturnCode Verb Url
    06ce6788       yes   19200                             302 GET  <Url>
