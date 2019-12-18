@@ -12,6 +12,7 @@ consider when setting up an email server and sending bulk emails.
 I want to show some of these settings and techniques with the help of the questions a spam filter ask.
  
 ## SPF Records: Are you allowed to send an email for example.com?
+![Email](/assets/spf.png#rightIcon)
 
 One of the things a spam filter wants to see verified is if the source mail server is allowed to send an email for the domain. Verification happens via an SPF (Sender Policy Framework) record. This record is a standard TXT record on your domain, and it looks like this:
 
@@ -51,7 +52,8 @@ The following types of mechanisms exist:
 | - | Fail, on hit, the validation failed (not a valid server to send emails from)
 | ~ | SoftFail, on hit it tells the the spam filter to allow it but to mark it suspicious
 | ? | Neutral, on hit it tells the spam filter that nothing can be said about validity
-| | Source: [OpenSpf.Net](https://web.archive.org/web/20120116212843/http://www.openspf.net/SPF_Record_Syntax)
+|   | Source: [OpenSpf.Net](https://web.archive.org/web/20120116212843/http://www.openspf.net/SPF_Record_Syntax)
 
 It is good on transition to use the `~all` syntax Only once you are certain all your mail
 servers are included in the spf record, you should change it to `-all`
+
